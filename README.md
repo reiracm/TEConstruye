@@ -1,2 +1,175 @@
 # TEConstruye
 Proyecto 1- Bases de Datos
+
+CREATE DATABASE TEConstruye
+GO
+USE TEConstruye
+
+CREATE TABLE EMPLOYEE(
+	Name_ 						VARCHAR (30)           	NOT NULL,
+	FName 						VARCHAR (30)          	NOT NULL,
+	LName 						VARCHAR (30)          	NOT NULL,
+	Code 						INT		    			NOT NULL,
+	Email 						VARCHAR (30)          	NOT NULL,
+	specialty 					VARCHAR (30)			NOT NULL,
+	Hourly_pay 					INT,
+	Password_					VARCHAR (30)      		NOT NULL,
+	IDPhone 					INT			         	NOT NULL,
+	ID 							INT   			        NOT NULL, 
+	IDRole 						INT						NOT NULL,
+
+	UNIQUE (IDPhone),
+	UNIQUE (ID),
+	UNIQUE (IDRole),
+	UNIQUE (Email),
+	UNIQUE (Code),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE CLIENT(
+	Name_ 						VARCHAR (30)           	NOT NULL,
+	FName 						VARCHAR (30)          	NOT NULL,
+	LName 						VARCHAR (30)          	NOT NULL,
+	Email 						VARCHAR (30)          	NOT NULL,
+	Password_ 					VARCHAR (30)		 	NOT NULL,
+	IDPhone 					INT						NOT NULL,
+	ID 							INT						NOT NULL,
+	UNIQUE (IDPhone),
+	UNIQUE (ID),
+	UNIQUE (Email),
+	PRIMARY KEY (ID)
+
+);
+
+CREATE TABLE PROJECT(
+	Location_ 					VARCHAR (100)          NOT NULL,
+	Total_Price 				INT				       NOT NULL,
+	IDClient 					INT				       NOT NULL,
+	ID 							INT				       NOT NULL,
+	UNIQUE (ID),
+	UNIQUE (IDClient),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE PURCHASE(
+	Price 						INT						NOT NULL,
+	Amount 						INT						NOT NULL,
+	Date_						DATE,
+	Description_ 				VARCHAR (150)       	NOT NULL,
+	IDProject 					INT						NOT NULL,	
+	IDStage 					INT						NOT NULL,
+	ID 							INT						NOT NULL,
+	UNIQUE (ID),
+	UNIQUE (IDProject),
+	UNIQUE (IDStage),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE STAGE(
+	Name_						VARCHAR (30)          	NOT NULL,
+	Description_ 				VARCHAR (150),
+	ID 		  					INT						NOT NULL,
+	UNIQUE (ID),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE MATERIAL(
+	Name_			 			VARCHAR (30)          	NOT NULL,
+	Price 						INT						NOT NULL,
+	Code 						INT						NOT NULL,
+	IDStage 					INT						NOT NULL,
+	UNIQUE (IDStage),
+	PRIMARY KEY (Code)
+);
+
+CREATE TABLE STAGES_PER_PROJECT(
+	End_Date					DATE					NOT NULL,
+	Start_Date_					DATE					NOT NULL,
+	IDProject 					INT						NOT NULL,
+	IDStage 					INT						NOT NULL,
+	UNIQUE (IDStage),
+	UNIQUE (IDProject),
+	PRIMARY KEY (IDProject)	
+);
+
+CREATE TABLE PHONES(
+	Phone 						INT						NOT NULL,
+	ID 							INT						NOT NULL,
+	UNIQUE (Phone),
+	UNIQUE (ID),
+	PRIMARY KEY (ID)		
+);
+
+CREATE TABLE ROLE_(
+	ID 							INT						NOT NULL,
+	Name_ 						VARCHAR (30)          	NOT NULL,
+	UNIQUE (ID),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE WORKS_ON(
+	Hours_ 						INT 					NOT NULL,
+	Day_ 						CHAR(1)					NOT NULL,
+	IDEmployee 					INT						NOT NULL,
+	IDProject 					INT						NOT NULL,
+	UNIQUE (IDEmployee),
+	UNIQUE (IDProject),
+	PRIMARY KEY (IDProject)
+);
+
+CREATE TABLE MANAGES(
+	IDProject 					INT						NOT NULL,
+	IDEmployee 					INT						NOT NULL,
+	UNIQUE (IDProject),
+	UNIQUE (IDEmployee),
+	PRIMARY KEY (IDProject)
+);
+
+CREATE TABLE ROLE_PER_EMPLOYEE(
+	IDEmployee					INT						NOT NULL,
+	IDRole						INT                     NOT NULL,
+	UNIQUE(IDEmployee),
+	UNIQUE(IDRole),
+	PRIMARY KEY(IDEmployee)
+	);
+
+CREATE TABLE MATERIAL_PER_STAGE(
+	IDStage						INT                     NOT NULL,
+	CodeMaterial				INT					    NOT NULL,
+	Quantity					INT                     NOT NULL,
+	Price_aprox					INT		                NOT NULL,
+	UNIQUE(IDStage),
+	PRIMARY KEY(CodeMaterial),
+	);
+
+ALTER TABLE EMPLOYEE ADD FOREIGN KEY (IDPhone) REFERENCES PHONES(ID);
+
+ALTER TABLE CLIENT ADD FOREIGN KEY (IDPhone) REFERENCES PHONES(ID);
+
+ALTER TABLE PROJECT ADD FOREIGN KEY (IDClient) REFERENCES CLIENT(ID);
+
+ALTER TABLE PURCHASE ADD FOREIGN KEY (IDProject) REFERENCES PROJECT(ID);
+
+ALTER TABLE PURCHASE ADD FOREIGN KEY (IDStage) REFERENCES STAGE(ID);
+
+ALTER TABLE MATERIAL ADD FOREIGN KEY (IDStage) REFERENCES STAGE(ID);
+
+ALTER TABLE STAGES_PER_PROJECT ADD FOREIGN KEY (IDProject) REFERENCES PROJECT(ID);
+
+ALTER TABLE STAGES_PER_PROJECT ADD FOREIGN KEY (IDStage) REFERENCES STAGE(ID);
+
+ALTER TABLE WORKS_ON ADD FOREIGN KEY (IDProject) REFERENCES PROJECT(ID);
+
+ALTER TABLE WORKS_ON ADD FOREIGN KEY (IDEmployee) REFERENCES PROJECT(ID);
+
+ALTER TABLE MANAGES ADD FOREIGN KEY (IDProject) REFERENCES PROJECT(ID);
+
+ALTER TABLE MANAGES ADD FOREIGN KEY (IDEmployee) REFERENCES PROJECT(ID);
+
+ALTER TABLE ROLE_PER_EMPLOYEE ADD FOREIGN KEY (IDEmployee) REFERENCES EMPLOYEE(ID);
+
+ALTER TABLE ROLE_PER_EMPLOYEE ADD FOREIGN KEY (IDRole) REFERENCES ROLE_(ID);
+
+ALTER TABLE MATERIAL_PER_STAGE ADD FOREIGN KEY (IDStage) REFERENCES STAGE(ID);
+
+ALTER TABLE MATERIAL_PER_STAGE ADD FOREIGN KEY (CodeMaterial) REFERENCES MATERIAL(Code);
