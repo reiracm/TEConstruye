@@ -82,10 +82,6 @@ End_Date	DATE	NOT NULL,
 Start_Date_	DATE	NOT NULL,
 IDProject INT	NOT NULL,
 IDStage INT	NOT NULL,
-UNIQUE (IDStage),
-UNIQUE (IDProject),
-PRIMARY KEY (IDProject)
-
 );
 
 CREATE TABLE PHONES(
