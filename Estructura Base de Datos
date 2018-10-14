@@ -106,10 +106,6 @@ Hours_ INT NOT NULL,
 Day_ CHAR(1)	NOT NULL,
 IDEmployee INT	NOT NULL,
 IDProject INT	NOT NULL,
-UNIQUE (IDEmployee),
-UNIQUE (IDProject),
-PRIMARY KEY (IDProject)
-
 );
 
 CREATE TABLE MANAGES(
