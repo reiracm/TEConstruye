@@ -18,7 +18,6 @@ IDRole INT	NOT NULL,
 
 UNIQUE (IDPhone),
 UNIQUE (ID),
-UNIQUE (IDRole),
 UNIQUE (Email),
 UNIQUE (Code),
 PRIMARY KEY (ID)
