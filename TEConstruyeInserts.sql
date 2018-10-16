@@ -136,9 +136,9 @@ INSERT INTO EMPLOYEE (Name_,	FName,	LName,	Code,	Email,	Specialty,	Hourly_pay,	P
 ('Tim',	'Steward',	'Cooper',	5202252,	'timSteward@teconstruye.com',	'Printor',	2500,	't1mSt3w4rD',	27,	25,	4),
 ('Matt',	'Darwin',	'Rodriguez',	4646513,	'maDarwin@teconstruye.com',	'Trabajador',	1500,	'M4ttd4rW1n',	28,	26,	2);
 
-INSERT INTO PROJECT (Location_,	Total_Price,	IDClient,	ID) VALUES
-('Cartago',	2567800,	1,	1),
-('San Jose',	3897235,	2,	2);
+INSERT INTO PROJECT (Location_,	Total_Price,	IDClient,	ID, Name_) VALUES
+('Cartago',	2567800,	1,	1, 'Construccion Casa'),
+('San Jose',	3897235,	2,	2, 'Construccion Edificio');
 
 INSERT INTO PURCHASE (Price,	Amount,	Date_,	Description_,	IDProject,	IDStage,	ID) VALUES
 (560000,	1,'20170714',	'Compra de materiales',	1,	4,	1),
