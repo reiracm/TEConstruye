@@ -3,7 +3,7 @@ USE TEConstruye
 GO
 
 
-insert into PHONES (Phone, ID) VALUES 
+INSERT INTO PHONES (Phone, ID) VALUES 
 (89855076, 1),
 (85216302, 2),
 (89523666,	3),
@@ -137,22 +137,22 @@ INSERT INTO EMPLOYEE (Name_,	FName,	LName,	Code,	Email,	Specialty,	Hourly_pay,	P
 ('Matt',	'Darwin',	'Rodriguez',	4646513,	'maDarwin@teconstruye.com',	'Trabajador',	1500,	'M4ttd4rW1n',	28,	26,	2);
 
 INSERT INTO PROJECT (Location_,	Total_Price,	IDClient,	ID, Name_) VALUES
-('Cartago',	2567800,	1,	1, 'Construccion Casa'),
-('San Jose',	3897235,	2,	2, 'Construccion Edificio');
+('Cartago',	2567800,	1,	1, 'Construcción casa'),
+('San Jose',	3897235,	2,	2,'Construcción edificio');
 
-INSERT INTO PURCHASE (Price,	Amount,	Date_,	Description_,	IDProject,	IDStage,	ID) VALUES
-(560000,	1,'20170714',	'Compra de materiales',	1,	4,	1),
-(450000,	1,'20180218',	'Compra de materiales',	2,	6,	2),
-(658000,	1,'20180210',	'Compra de materiales',	1,	16,	3),
-(985000,	1,'20170701',	'Compra de materiales',	2,	12,	4),
-(681200,	1,'20170715',	'Compra de materiales',	1,	19,	5),
-(879300,	1,'20170812',	'Compra de materiales',	2,	13,	6),
-(251860,	1,'20180513',	'Compra de materiales',	1,	5,	7),
-(325680,	1,'20170908',	'Compra de materiales',	2,	3,	8),
-(189670,	1,'20171118',	'Compra de materiales',	1,	10,	9),
-(789520,	1,'20171027',	'Compra de materiales',	2,	7,	10),
-(925810,	1,'20170909',	'Compra de materiales',	1,	21,	11),
-(235860,	1,'20170610',	'Compra de materiales',	2,	8,	12);
+INSERT INTO PURCHASE (Price,	Amount,	Date_,	Description_,	IDProject,	IDStage,	ID, Location_) VALUES
+(560000,	1,'20170714',	'Compra de materiales',	1,	4,	1, 'EPA'),
+(450000,	1,'20180218',	'Compra de materiales',	2,	6,	2,'El Lagar'),
+(658000,	1,'20180210',	'Compra de materiales',	1,	16,	3, 'El Colono'),
+(985000,	1,'20170701',	'Compra de materiales',	2,	12,	4,'EPA'),
+(681200,	1,'20170715',	'Compra de materiales',	1,	19,	5,'El Lagar'),
+(879300,	1,'20170812',	'Compra de materiales',	2,	13,	6, 'El Colono'),
+(251860,	1,'20180513',	'Compra de materiales',	1,	5,	7,'EPA'),
+(325680,	1,'20170908',	'Compra de materiales',	2,	3,	8,'El Lagar'),
+(189670,	1,'20171118',	'Compra de materiales',	1,	10,	9,'El Colono'),
+(789520,	1,'20171027',	'Compra de materiales',	2,	7,	10,'Ferromax'),
+(925810,	1,'20170909',	'Compra de materiales',	1,	21,	11,'Las Gravilias'),
+(235860,	1,'20170610',	'Compra de materiales',	2,	8,	12,'EPA');
 
 
 INSERT INTO STAGES_PER_PROJECT (End_Date,	Start_Date_,	IDProject,	IDStage) VALUES
@@ -236,7 +236,6 @@ INSERT INTO WORKS_ON (Hours_,	Day_,	IDEmployee,	IDProject) VALUES
 
 
 
-
 INSERT INTO MANAGES (IDProject,	IDEmployee) VALUES 
 (1,	1),
 (2,	5); 
@@ -252,23 +251,23 @@ INSERT INTO ROLE_PER_EMPLOYEE (IDEmployee,	IDRole) VALUES
 (7,	4),
 (8,	3),
 (9,	4),
-(10,	5),
-(11,	1),
-(12,	5),
-(13,	4),
-(14,	5),
-(15,	4),
-(16,	5),
-(17,	4),
-(18,	3),
-(19,	4),
-(20,	5),
-(21,	4),
-(22,	5),
-(23,	4),
-(24,	5),
-(25,	4),
-(26,	5);
+(10,5),
+(11,1),
+(12,5),
+(13,4),
+(14,5),
+(15,4),
+(16,5),
+(17,4),
+(18,3),
+(19,4),
+(20,5),
+(21,4),
+(22,5),
+(23,4),
+(24,5),
+(25,4),
+(26,5);
 
 INSERT INTO MATERIAL_PER_STAGE (IDStage,	CodeMaterial,	Quantity,	Price_aprox) VALUES
 (1,	8975425,	1,	20000),
