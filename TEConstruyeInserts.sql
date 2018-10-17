@@ -81,7 +81,7 @@ INSERT INTO MATERIAL (Name_, Price, Code) VALUES
 ('Brochas',	4000,	4548654),
 ('Madera para las escaleras',	100000,	8877985); 
 
-INSERT INTO CLIENT (Name_,	FName,	LName,	Email,	Password_,	IDPhone,	ID) VALUES 
+INSERT INTO CLIENT (Fname,	Sname,	Lname,	Email,	Password_,	IDPhone,	ID) VALUES 
 ('Jennifer',	'Schmidt',	'Yates',	'jenSchmidt@gmail.com',	'j3NsChY4t3s',	13,	1),
 ('Niko',	'Vasquez',	'Moody',	'nikoVas@gmail.com',	'n1K0V4s',	14,	2);
 
@@ -108,7 +108,7 @@ INSERT INTO STAGE (Name_,	Description_,	ID) VALUES
 ('Escaleras',	'Las escaleras de la casa',	20),
 ('Terminado',	'Terminación del proyecto',	21);
 
-INSERT INTO EMPLOYEE (Name_,	FName,	LName,	Code,	Email,	Specialty,	Hourly_pay,	Password_,	IDPhone,	ID,	IDRole) VALUES
+INSERT INTO EMPLOYEE (Fname,	Sname,	Lname,	Code,	Email,	Specialty,	Hourly_pay,	Password_,	IDPhone,	ID,	IDRole) VALUES
 ('Richard',	'Johnson',	'Clark',	1935264,	'riJoHnC@teconstruye.com',	'Civil',	3500,	'R1cH4rD',	1,	1,	1),
 ('Jorge',	'Warner',	'Spears',	2165121,	'joWarner@teconstruye.com',	'Trabajador',	1500,	'j0rg3w4rN3r',	22,	2,	5),
 ('Alice',	'Flores',	'Lopez',	1283456,	'alFloLz@teconstruye.com',	'Eléctrico',	3000,	'A1ic3L0z',	2,	3,	1),
