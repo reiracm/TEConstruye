@@ -8,9 +8,9 @@ USE TEConstruye
 
 /** EMPLOYEE'S TABLE **/
 CREATE TABLE EMPLOYEE( 
-Name_							VARCHAR (30)		 NOT NULL,
-FName							VARCHAR (30)		 NOT NULL,
-LName							VARCHAR (30)		 NOT NULL,
+Fname							VARCHAR (30)		 NOT NULL,
+Sname							VARCHAR (30)		 NOT NULL,
+Lname							VARCHAR (30)		 NOT NULL,
 Code							INT				 	 NOT NULL,
 Email							VARCHAR (30)		 NOT NULL, 
 specialty						VARCHAR (30)		 NOT NULL,
