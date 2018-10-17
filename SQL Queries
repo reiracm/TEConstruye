@@ -3,28 +3,28 @@ USE TEConstruye
 GO
 
 /** Shows Employee's table information **/
-CREATE PROCEDURE _usp_employees_table
+CREATE PROCEDURE usp_employees_table
 AS
 SELECT *
 FROM EMPLOYEE
 GO;
 
 /** Shows Client's table information **/
-CREATE PROCEDURE _usp_clients_table
+CREATE PROCEDURE usp_clients_table
 AS
 SELECT *
 FROM CLIENT
 GO;
 
 /** Shows Project's table information **/
-CREATE PROCEDURE _usp_projects_table
+CREATE PROCEDURE usp_projects_table
 AS
 SELECT *
 FROM PROJECT
 GO;
 
 /** Shows Purchase's table information **/
-CREATE PROCEDURE _usp_purchases_table
+CREATE PROCEDURE usp_purchases_table
 AS
 SELECT *
 FROM PURCHASE
@@ -32,63 +32,63 @@ GO;
 
 
 /** Shows Stage's table information **/
-CREATE PROCEDURE _usp_stages_table
+CREATE PROCEDURE usp_stages_table
 AS
 SELECT *
 FROM STAGE
 GO;
 
 /** Shows Material's table information **/
-CREATE PROCEDURE _usp_materials_table
+CREATE PROCEDURE usp_materials_table
 AS
 SELECT *
 FROM MATERIAL
 GO;
 
 /** Shows Stages per project information **/
-CREATE PROCEDURE _usp_stages_per_project_table
+CREATE PROCEDURE usp_stages_per_project_table
 AS
 SELECT *
 FROM STAGES_PER_PROJECT
 GO;
 
 /** Shows Phone's table information **/
-CREATE PROCEDURE _usp_phones_table
+CREATE PROCEDURE usp_phones_table
 AS
 SELECT *
 FROM PHONES
 GO;
 
 /** Shows Role's table information **/
-CREATE PROCEDURE _usp_roles_table
+CREATE PROCEDURE usp_roles_table
 AS
 SELECT *
 FROM ROLE_
 GO;
 
 /** Shows which employees work on each project **/
-CREATE PROCEDURE _usp_works_on_table
+CREATE PROCEDURE usp_works_on_table
 AS
 SELECT *
 FROM WORKS_ON
 GO;
 
 /** Shows Manager's table information **/
-CREATE PROCEDURE _usp_manages_table
+CREATE PROCEDURE usp_manages_table
 AS
 SELECT *
 FROM MANAGES
 GO;
 
 /** Shows Roles per employee information **/
-CREATE PROCEDURE _usp_roles_per_employee_table
+CREATE PROCEDURE usp_roles_per_employee_table
 AS
 SELECT *
 FROM ROLE_PER_EMPLOYEE
 GO
 
 /** Shows Materials per stage information **/
-CREATE PROCEDURE _usp_materials_per_stage_table
+CREATE PROCEDURE usp_materials_per_stage_table
 AS
 SELECT *
 FROM MATERIAL_PER_STAGE
@@ -96,9 +96,9 @@ GO
 
 /** Shows Each employee and each role information **/
 
-CREATE PROCEDURE _usp_employees_and_roles 
+CREATE PROCEDURE usp_employees_and_roles 
 AS
-SELECT EMPLOYEE.ID, EMPLOYEE.Name_ , EMPLOYEE.FName, ROLE_.Name_
+SELECT EMPLOYEE.ID, EMPLOYEE.Fname, EMPLOYEE.Sname, EMPLOYEE.Lname, ROLE_.Name_
 FROM EMPLOYEE
 	INNER JOIN ROLE_ ON  EMPLOYEE.IDRole = ROLE_.ID
 ORDER BY EMPLOYEE.IDRole
@@ -107,7 +107,7 @@ GO
 
 
 /** Shows Materials and costs per project, per stage **/
-CREATE PROCEDURE _usp_materials_and_costs_per_project_per_stage @Project_num INT
+CREATE PROCEDURE usp_materials_and_costs_per_project_per_stage @Project_num INT
 AS
 SELECT STAGES_PER_PROJECT.IDStage, MATERIAL_PER_STAGE.CodeMaterial, MATERIAL_PER_STAGE.Quantity, PURCHASE.Price
 FROM STAGES_PER_PROJECT
@@ -118,25 +118,25 @@ ORDER BY STAGES_PER_PROJECT.IDProject
 GO
 
 /** Shows Employees who work on Project **/
-CREATE PROCEDURE _usp_employee_Information_per_project @Project_Num INT
+CREATE PROCEDURE usp_employee_Information_per_project @Project_Num INT
 AS
-SELECT EMPLOYEE.ID, EMPLOYEE.Name_ , EMPLOYEE.LName
+SELECT EMPLOYEE.ID, EMPLOYEE.Fname , EMPLOYEE.SName, EMPLOYEE.Lname
 FROM EMPLOYEE, WORKS_ON
 WHERE WORKS_ON.IDProject = @Project_Num
 GO
 
 /** Salaries per employee**/
 
-CREATE PROCEDURE _usp_salary_employee_1 @ID INT, @Project INT
+CREATE PROCEDURE usp_salary_employee_1 @ID INT, @Project INT
 AS
-SELECT  EMPLOYEE.ID , EMPLOYEE.Name_, EMPLOYEE.Hourly_pay, WORKS_ON.Hours_
+SELECT  EMPLOYEE.ID , EMPLOYEE.Fname, EMPLOYEE.Sname, EMPLOYEE.Lname, EMPLOYEE.Hourly_pay, WORKS_ON.Hours_
 FROM EMPLOYEE
 	INNER JOIN WORKS_ON ON EMPLOYEE.ID = WORKS_ON.IDEmployee
 WHERE EMPLOYEE.ID = @ID AND WORKS_ON.IDProject = @Project
 GO
  
  /**Ticket per project **/
-CREATE PROCEDURE _usp_shopping @Project_num INT
+CREATE PROCEDURE usp_shopping @Project_num INT
 AS
 SELECT PURCHASE.ID, PURCHASE.Date_, PURCHASE.Amount, PURCHASE.Price
 FROM PURCHASE
@@ -144,38 +144,38 @@ WHERE PURCHASE.IDProject= @Project_num
 GO
 
 
-EXECUTE _usp_employees_table;
+EXECUTE usp_employees_table;
 
-EXECUTE _usp_clients_table;
+EXECUTE usp_clients_table;
 
-EXECUTE _usp_projects_table;
+EXECUTE usp_projects_table;
 
-EXECUTE _usp_purchases_table;
+EXECUTE usp_purchases_table;
 
-EXECUTE _usp_stages_table;
+EXECUTE usp_stages_table;
 
-EXECUTE _usp_materials_table;
+EXECUTE usp_materials_table;
 
-EXECUTE _usp_stages_per_project_table;
+EXECUTE usp_stages_per_project_table;
 
-EXECUTE _usp_phones_table;
+EXECUTE usp_phones_table;
 
-EXECUTE _usp_roles_table;
+EXECUTE usp_roles_table;
 
-EXECUTE _usp_works_on_table;
+EXECUTE usp_works_on_table;
 
-EXECUTE _usp_manages_table;
+EXECUTE usp_manages_table;
 
-EXECUTE _usp_roles_per_employee_table;
+EXECUTE usp_roles_per_employee_table;
 
-EXECUTE _usp_materials_per_stage_table;
+EXECUTE usp_materials_per_stage_table;
 
-EXECUTE _usp_employees_and_roles;
+EXECUTE usp_employees_and_roles;
 
-EXECUTE _usp_materials_and_costs_per_project_per_stage @Project_num=1;
+EXECUTE usp_materials_and_costs_per_project_per_stage @Project_num=1;
 
-EXECUTE _usp_employee_Information_per_project @Project_Num=2;
+EXECUTE usp_employee_Information_per_project @Project_Num=2;
 
-EXECUTE _usp_salary_employee_1 @ID=8,@Project=1;
+EXECUTE usp_salary_employee_1 @ID=8,@Project=1;
 
-EXECUTE _usp_shopping @Project_num=2;
+EXECUTE usp_shopping @Project_num=2;
