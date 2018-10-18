@@ -1,0 +1,120 @@
+<div class="card">
+        <div class="btn-group" role="group" style="margin-bottom: 10px; margin-right: 10px;">   
+            <!--Modal for adding a project-->  
+            <div>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#add_project_modal" style="margin-left: 20px; margin-top: 20px;">Añadir</button>
+            </div>
+            <div class="modal fade" id="add_project_modal" tabindex="-1" role="dialog" aria-labelledby="add_project_modal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="add_project_label">Añadir projecto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div data-ng-repeat = "(key,value) in project_template" class="input-group-prepend" style = "margin: 5px;">
+                                <span class="input-group-text badge-dark">{{translate[key]}}</span>
+                                <input type="text" class="form-control" ng-model="project_template[key]" aria-describedby="basic-addon3">
+                            </div>
+                            <div class="modal-footer">
+                                <button ng-click="addProject()" type="button" class="btn btn-warning">Insertar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Modal for project expense assignment-->
+            <div>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#assign_project_hours_modal" style="margin-left: 20px; margin-top: 20px;">Asignar gasto</button>
+            </div>
+            <div class="modal fade" id="assign_project_hours_modal" tabindex="-1" role="dialog" aria-labelledby="assign_project_hours_modalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="assign_project_hours_modal_label">Asignar gasto a un projecto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="margin: 10px">
+                                <input class="form-control mr-sm-2" type="search" data-ng-model = "search_project" placeholder="Buscar proyecto" aria-label="Search"> 
+                                <select class="custom-select" id="purchase_project_select" aria-label="">
+                                    <option  data-ng-repeat = "project in project_list | filter: search_project" value="{{project['ID']}}" >{{"Proyecto: "+project["Name_"] +", ID: "+project["ID"]}}</option>
+                                </select>
+                            </div>
+                            <div style="margin: 10px">
+                                <input class="form-control mr-sm-2" type="search" data-ng-model = "search_stage" placeholder="Buscar etapa" aria-label="Search"> 
+                                <select class="custom-select" id="purchase_stage_select" aria-label="">
+                                    <option  data-ng-repeat = "stage in stage_list | filter: search_stage" value="{{stage['ID']}}" >{{"Etapa: "+stage["Name_"] +", ID: "+stage["ID"]}}</option>
+                                </select>
+                            </div>
+                            <div data-ng-repeat = "(key,value) in project_expense_template" class="input-group-prepend" style = "margin: 5px;">
+                                <span class="input-group-text badge-dark">{{translate[key]}}</span>
+                                <input type="text" class="form-control" ng-model="project_expense_template[key]" aria-describedby="basic-addon3">
+                            </div>
+                            <div class="modal-footer">
+                                <div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
+                                    <button ng-click="assignProjectExpense()" type="button" class="btn btn-warning">Asignar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Modal for assign a stage to a project-->
+            <div>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#assign_stage_modal" style="margin-left: 20px; margin-top: 20px;">Asignar etapa</button>
+            </div>
+            <div class="modal fade" id="assign_stage_modal" tabindex="-1" role="dialog" aria-labelledby="assign_stage_modalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="assign_stage_label">Asignar etapa a un proyecto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div data-ng-repeat = "(key,value) in assign_project_stages_template" class="input-group-prepend" style = "margin: 5px;">
+                                <span class="input-group-text badge-dark">{{translate[key]}}</span>
+                                <input type="text" class="form-control" ng-model="assign_project_stages_template[key]" aria-describedby="basic-addon3">
+                            </div>
+                            <div style="margin: 10px">
+                                <input class="form-control mr-sm-2" type="search" data-ng-model = "search_to_assign_project" placeholder="Buscar proyecto" aria-label="Search"> 
+                                <select class="custom-select" id="assign_project_select" aria-label="">
+                                    <option  data-ng-repeat = "project in project_list | filter: search_to_assign_project" value="{{project['ID']}}" >{{"Proyecto: "+project["Name_"] +", ID: "+project["ID"]}}</option>
+                                </select>
+                            </div>
+                            <div style="margin: 10px">
+                                <input class="form-control mr-sm-2" type="search" data-ng-model = "search_to_assign_stage" placeholder="Buscar etapa" aria-label="Search">
+                                <select class="custom-select" id="assign_stage_select" aria-label="">
+                                    <option  data-ng-repeat = "stage in stage_list | filter: search_to_assign_stage" value="{{stage['ID']}}" >{{"Etapa: "+stage["Name_"] +", ID: "+stage["ID"]}}</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button ng-click="assignStageToProject()" type="button" class="btn btn-warning">Asignar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Table for viewing project data-->
+        <div class="card-body">
+            <table class="table table-bordered table-striped" style="text-align: center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th data-ng-repeat = "(key,value) in project_template" scope="col">{{translate[key]}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat = "project in project_list | filter: search">
+                        <td data-ng-repeat = "(key,value) in project">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

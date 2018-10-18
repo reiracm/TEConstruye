@@ -1,0 +1,89 @@
+<div class="card">
+    <div class="btn-group" role="group" style="margin-bottom: 10px; margin-right: 10px;">   
+        <!--Modal for adding an employee-->  
+        <div>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#add_employee_modal" style="margin-left: 20px; margin-top: 20px;">Añadir</button>
+        </div>
+        <div class="modal fade" id="add_employee_modal" tabindex="-1" role="dialog" aria-labelledby="add_employee_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="add_employee_label">Añadir empleado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div data-ng-repeat = "(key,value) in employee_template" class="input-group-prepend" style = "margin: 5px;">
+                            <span class="input-group-text badge-dark">{{translate[key]}}</span>
+                            <input type="text" class="form-control" ng-model="employee_template[key]" aria-describedby="basic-addon3">
+                        </div>
+                        <div style="margin: 10px">
+                            <select class="custom-select" id="employee_role_select" aria-label="">
+                                <option  data-ng-repeat = "role in role_list" value="{{role['ID']}}" >{{role["Name_"]}}</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button ng-click="addEmployee()" type="button" class="btn btn-warning">Insertar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modal for employee pay per hour assignment-->
+        <div>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#assign_employee_hours_modal" style="margin-left: 20px; margin-top: 20px;">Asignar horas</button>
+        </div>
+        <div class="modal fade" id="assign_employee_hours_modal" tabindex="-1" role="dialog" aria-labelledby="assign_employee_hours_modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="assign_employee_hours_modal_label">Asignar horas trabajadas a un empleado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="margin: 10px">
+                            <input class="form-control mr-sm-2" type="search" data-ng-model = "search_assigned_employee" placeholder="Buscar empleado" aria-label="Search"> 
+                            <select class="custom-select" id="assign_hours_employee_select" aria-label="">
+                                <option  data-ng-repeat = "employee in employee_list | filter: search_assigned_employee" value="{{employee['ID']}}" >{{'Nombre: '+employee["Fname"]+' '+employee["Lname"]+', ID: '+employee["ID"]}}</option>
+                            </select>
+                        </div>
+                        <div style="margin: 10px"> 
+                            <input class="form-control mr-sm-2" type="search" data-ng-model = "search_assigned_project" placeholder="Buscar proyecto" aria-label="Search"> 
+                            <select class="custom-select" id="assign_hours_project_select" aria-label="">
+                                <option  data-ng-repeat = "project in project_list | filter: search_assigned_project" value="{{project['ID']}}">{{'Nombre: '+project["Name_"]+', ID: '+project["ID"]}}</option>
+                            </select> 
+                        </div>
+                        <div data-ng-repeat = "(key,value) in employee_pay_hours_template" class="input-group-prepend" style = "margin: 5px;">
+                            <span class="input-group-text badge-dark">{{key}}</span>
+                            <input type="text" class="form-control" ng-model="employee_pay_hours_template[key]" aria-describedby="basic-addon3">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin: 5px; text-align: right;">
+                            <button ng-click="assignEmployeePayHours()" type="button" class="btn btn-warning">Asignar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Table for viewing employee data-->
+    <div class="card-body">
+        <table class="table table-bordered table-striped" style="text-align: center">
+            <thead class="thead-dark">
+                <tr>
+                    <th data-ng-repeat = "(key,value) in employee_template" scope="col">{{translate[key]}}</th>
+                    <th>ID de rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat = "employee in employee_list | filter: search">
+                    <td data-ng-repeat = "(key,value) in employee">{{value}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
