@@ -105,6 +105,7 @@ Hours_							INT					 NOT NULL,
 Day_							DATE				 NOT NULL,
 IDEmployee						INT					 NOT NULL,
 IDProject						INT					 NOT NULL,
+DateName_						VARCHAR (30)		 NOT NULL,						
 );
 
 /** WHO MANAGES EACH PROJECT TABLE **/
@@ -1040,14 +1041,15 @@ BEGIN
 		BEGIN
 			
 			--	The new data is inserted in the table WORKS_ON
-			INSERT INTO WORKS_ON (Hours_,	Day_,	IDEmployee,	IDProject) VALUES
-			(@Works_OnNewHours, @Works_OnNewDay, @Works_OnNewIDEmployee, @Works_OnNewIDProject)
+			INSERT INTO WORKS_ON (Hours_,	Day_,	IDEmployee,	IDProject, DateName_) VALUES
+			(@Works_OnNewHours, @Works_OnNewDay, @Works_OnNewIDEmployee, @Works_OnNewIDProject, 
+			datename(dw,@Works_OnNewDay))
 
 			--	What is saved in the WORKS_ON table is printed
 			Print ''
 			Print 'The new record was inserted in the table WORKS_ON: Hours: ' + (CAST (@Works_OnNewHours AS varchar)) +
 			' Day: ' + (CAST (@Works_OnNewDay AS varchar)) + ' IDEmployee: ' + (CAST (@Works_OnNewIDEmployee AS varchar)) +
-			' IDProject: ' + (CAST (@Works_OnNewIDProject AS varchar))
+			' IDProject: ' + (CAST (@Works_OnNewIDProject AS varchar)) + ' DateName: ' + datename(dw,@Works_OnNewDay)
 
 		END
 
