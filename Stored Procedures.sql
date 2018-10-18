@@ -1,4 +1,3 @@
-
 /*
  --@AUTHOR Dayanna Quesada
  --@CREATE DATE 15/10/2018
@@ -201,7 +200,6 @@ END
 GO
 USE TEConstruye
 GO
-
 
 CREATE PROCEDURE usp_InsertNewProject
 
@@ -837,6 +835,11 @@ END
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Employee's table information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_employees_table
 AS
 SELECT *
@@ -848,6 +851,11 @@ GO;
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Client's table information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_clients_table
 AS
 SELECT *
@@ -859,6 +867,11 @@ GO;
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Project's table information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_projects_table
 AS
 SELECT *
@@ -870,6 +883,11 @@ GO;
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Purchase's table information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_purchases_table
 AS
 SELECT *
@@ -881,6 +899,11 @@ GO;
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Stage's table information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_stages_table
 AS
 SELECT *
@@ -892,6 +915,11 @@ GO;
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Material's table information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_materials_table
 AS
 SELECT *
@@ -903,6 +931,11 @@ GO;
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Stages per project information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_stages_per_project_table
 AS
 SELECT *
@@ -914,6 +947,11 @@ GO;
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Role's table information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_roles_table
 AS
 SELECT *
@@ -925,6 +963,11 @@ GO;
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows which employees work on each project
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_works_on_table
 AS
 SELECT *
@@ -936,6 +979,11 @@ GO;
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Manager's table information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_manages_table
 AS
 SELECT *
@@ -947,6 +995,11 @@ GO;
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Roles per employee information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_roles_per_employee_table
 AS
 SELECT *
@@ -958,6 +1011,11 @@ GO
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Materials per stage information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_materials_per_stage_table
 AS
 SELECT *
@@ -969,6 +1027,11 @@ GO
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Each employee and each role information
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_employees_and_roles 
 AS
 SELECT EMPLOYEE.ID, EMPLOYEE.Fname, EMPLOYEE.Sname, EMPLOYEE.Lname, ROLE_.Name_
@@ -983,6 +1046,11 @@ GO
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Materials and costs per project, per stage
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_materials_and_costs_per_project_per_stage @Project_num INT
 AS
 SELECT STAGES_PER_PROJECT.IDStage, MATERIAL_PER_STAGE.CodeMaterial, MATERIAL_PER_STAGE.Quantity, PURCHASE.Price
@@ -998,6 +1066,11 @@ GO
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Employees who work on Project
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_employee_Information_per_project @Project_Num INT
 AS
 SELECT EMPLOYEE.ID, EMPLOYEE.Fname , EMPLOYEE.SName, EMPLOYEE.Lname
@@ -1010,6 +1083,11 @@ GO
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Salaries per employee
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_salary_employee_1 @ID INT, @Project INT
 AS
 SELECT  EMPLOYEE.ID , EMPLOYEE.Fname, EMPLOYEE.Sname, EMPLOYEE.Lname, EMPLOYEE.Hourly_pay, WORKS_ON.Hours_
@@ -1023,6 +1101,11 @@ GO
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Ticket per project
 */
+
+GO
+USE TEConstruye
+GO
+
 CREATE PROCEDURE usp_shopping @Project_num INT
 AS
 SELECT PURCHASE.ID, PURCHASE.Date_, PURCHASE.Amount, PURCHASE.Price
