@@ -51,7 +51,6 @@ IDClient						INT					 NOT NULL,
 ID								INT					 NOT NULL,
 Name_							VARCHAR(30)			 NOT NULL,
 UNIQUE (ID),
-UNIQUE (IDClient),
 PRIMARY KEY (ID)
 );
 
