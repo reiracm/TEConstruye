@@ -829,6 +829,418 @@ BEGIN
 END 
 
 /*
+	Gets of all the DataBase 
+*/
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Employee's table information
+*/
+CREATE PROCEDURE usp_employees_table
+AS
+SELECT *
+FROM EMPLOYEE
+GO;
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Client's table information
+*/
+CREATE PROCEDURE usp_clients_table
+AS
+SELECT *
+FROM CLIENT
+GO;
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Project's table information
+*/
+CREATE PROCEDURE usp_projects_table
+AS
+SELECT *
+FROM PROJECT
+GO;
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Purchase's table information
+*/
+CREATE PROCEDURE usp_purchases_table
+AS
+SELECT *
+FROM PURCHASE
+GO;
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Stage's table information
+*/
+CREATE PROCEDURE usp_stages_table
+AS
+SELECT *
+FROM STAGE
+GO;
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Material's table information
+*/
+CREATE PROCEDURE usp_materials_table
+AS
+SELECT *
+FROM MATERIAL
+GO;
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Stages per project information
+*/
+CREATE PROCEDURE usp_stages_per_project_table
+AS
+SELECT *
+FROM STAGES_PER_PROJECT
+GO;
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Role's table information
+*/
+CREATE PROCEDURE usp_roles_table
+AS
+SELECT *
+FROM ROLE_
+GO;
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows which employees work on each project
+*/
+CREATE PROCEDURE usp_works_on_table
+AS
+SELECT *
+FROM WORKS_ON
+GO;
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Manager's table information
+*/
+CREATE PROCEDURE usp_manages_table
+AS
+SELECT *
+FROM MANAGES
+GO;
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Roles per employee information
+*/
+CREATE PROCEDURE usp_roles_per_employee_table
+AS
+SELECT *
+FROM ROLE_PER_EMPLOYEE
+GO
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Materials per stage information
+*/
+CREATE PROCEDURE usp_materials_per_stage_table
+AS
+SELECT *
+FROM MATERIAL_PER_STAGE
+GO
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Each employee and each role information
+*/
+CREATE PROCEDURE usp_employees_and_roles 
+AS
+SELECT EMPLOYEE.ID, EMPLOYEE.Fname, EMPLOYEE.Sname, EMPLOYEE.Lname, ROLE_.Name_
+FROM EMPLOYEE
+	INNER JOIN ROLE_ ON  EMPLOYEE.IDRole = ROLE_.ID
+ORDER BY EMPLOYEE.IDRole
+GO
+
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Materials and costs per project, per stage
+*/
+CREATE PROCEDURE usp_materials_and_costs_per_project_per_stage @Project_num INT
+AS
+SELECT STAGES_PER_PROJECT.IDStage, MATERIAL_PER_STAGE.CodeMaterial, MATERIAL_PER_STAGE.Quantity, PURCHASE.Price
+FROM STAGES_PER_PROJECT
+	INNER JOIN MATERIAL_PER_STAGE ON STAGES_PER_PROJECT.IDStage = MATERIAL_PER_STAGE.IDStage
+	INNER JOIN PURCHASE ON STAGES_PER_PROJECT.IDStage = PURCHASE.IDStage
+WHERE STAGES_PER_PROJECT.IDProject=@Project_num
+ORDER BY STAGES_PER_PROJECT.IDProject
+GO
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Shows Employees who work on Project
+*/
+CREATE PROCEDURE usp_employee_Information_per_project @Project_Num INT
+AS
+SELECT EMPLOYEE.ID, EMPLOYEE.Fname , EMPLOYEE.SName, EMPLOYEE.Lname
+FROM EMPLOYEE, WORKS_ON
+WHERE WORKS_ON.IDProject = @Project_Num
+GO
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Salaries per employee
+*/
+CREATE PROCEDURE usp_salary_employee_1 @ID INT, @Project INT
+AS
+SELECT  EMPLOYEE.ID , EMPLOYEE.Fname, EMPLOYEE.Sname, EMPLOYEE.Lname, EMPLOYEE.Hourly_pay, WORKS_ON.Hours_
+FROM EMPLOYEE
+	INNER JOIN WORKS_ON ON EMPLOYEE.ID = WORKS_ON.IDEmployee
+WHERE EMPLOYEE.ID = @ID AND WORKS_ON.IDProject = @Project
+GO
+ 
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 14/10/2018
+ --DESCRIPTION: Ticket per project
+*/
+CREATE PROCEDURE usp_shopping @Project_num INT
+AS
+SELECT PURCHASE.ID, PURCHASE.Date_, PURCHASE.Amount, PURCHASE.Price
+FROM PURCHASE
+WHERE PURCHASE.IDProject= @Project_num
+GO
+
+/*
+	Testing Procedures Gets
+*/
+
+EXECUTE usp_employees_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_clients_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_projects_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_purchases_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_stages_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_materials_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_stages_per_project_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_roles_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_works_on_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_manages_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_roles_per_employee_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_materials_per_stage_table;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_employees_and_roles;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_materials_and_costs_per_project_per_stage @Project_num=1;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_employee_Information_per_project @Project_Num=2;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_salary_employee_1 @ID=8,@Project=1;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXECUTE usp_shopping @Project_num=2;
+
+--------------------------------------------------------------------------------------------------------------------------
+
+/*
+	Testing Procedures Inserts
+*/
+
+--Show me which is the largest ID in the table
+SELECT MAX(EMPLOYEE.ID) from EMPLOYEE
+
+--Insert a data in the Employee table
+EXECUTE usp_InsertNewEmployee 'Prueba', 'Test', 'LName', 123456, 
+'test@prueba.com', 'Civil', 2, '123', 1, 123456
+
+--Show me which is the largest ID in the table
+SELECT MAX(EMPLOYEE.ID) from EMPLOYEE
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+--Show me which is the largest ID in the table
+SELECT MAX(CLIENT.ID) from CLIENT
+
+--Insert a data in the Client table
+EXECUTE usp_InsertNewClient 'Prueba', 'Test', 'LName', 'test@prueba.com', 123, 666
+
+--Show me which is the largest ID in the table
+SELECT MAX(CLIENT.ID) from CLIENT
+
+--------------------------------------------------------------------------------------------------------------------------
+
+--	Show me which is the largest ID in the table
+SELECT MAX(PROJECT.ID) from PROJECT
+
+--	Insert a data in the Project table
+EXECUTE usp_InsertNewProject 'TEST', 123, 1, 'Prueba'
+
+--	Show me which is the largest ID in the table
+SELECT MAX(PROJECT.ID) from PROJECT
+
+--------------------------------------------------------------------------------------------------------------------------
+
+--	Show me which is the largest ID in the table
+SELECT MAX(PURCHASE.ID) from PURCHASE
+
+--	Insert a data in the Purchase table
+EXECUTE usp_InsertNewPurchase 123, 2, '20170814', 'Esto es una prueba', 1, 1, 'YOLO'
+
+--	Show me which is the largest ID in the table
+SELECT MAX(PURCHASE.ID) from PURCHASE
+
+--------------------------------------------------------------------------------------------------------------------------
+
+--	Show me which is the largest ID in the table
+SELECT MAX(STAGE.ID) from STAGE
+
+--	Insert a data in the Stage table
+EXECUTE usp_InsertNewStage 'Test', 'Esto es una prueba'
+
+--	Show me which is the largest ID in the table
+SELECT MAX(STAGE.ID) from STAGE
+
+--------------------------------------------------------------------------------------------------------------------------
+
+--	It shows me how many data there are in the material table
+SELECT COUNT (*) FROM MATERIAL
+
+--	Insert a data in the Material table
+EXECUTE usp_InsertNewMaterial 'Test', 123, 666
+
+--	It shows me how many data there are in the material table
+SELECT COUNT (*) FROM MATERIAL
+
+--------------------------------------------------------------------------------------------------------------------------
+
+--	It shows me how many data there is in the Stages_Per_Project table
+SELECT COUNT (*) FROM STAGES_PER_PROJECT
+
+--	Insert a data in the table Stages_Per_Project
+EXECUTE usp_InsertNewStages_Per_Project '20170707', '20170107', 2, 2
+
+--	It shows me how many data there is in the Stages_Per_Project table
+SELECT COUNT (*) FROM STAGES_PER_PROJECT
+
+--------------------------------------------------------------------------------------------------------------------------
+
+--	Show me which is the largest ID in the table
+SELECT MAX(ROLE_.ID) from ROLE_
+
+--	Inserted a piece of information in the Phones table
+EXECUTE usp_InsertNewRole 'TEST'
+
+--	Show me which is the largest ID in the table
+SELECT MAX(ROLE_.ID) from ROLE_
+
+--------------------------------------------------------------------------------------------------------------------------
+
+--	It shows me how many data there is in the Works_On table
+SELECT COUNT (*) FROM WORKS_ON
+
+--	Inserted a data in the Works_On table
+EXECUTE usp_InsertNewWorks_On 6, '20170701', 1, 2
+
+--	It shows me how many data there is in the Works_On table
+SELECT COUNT (*) FROM WORKS_ON
+
+--------------------------------------------------------------------------------------------------------------------------
+
+--	It shows me how much data there is in the Manages table
+SELECT COUNT (*) FROM MANAGES
+
+--	Inserted a data in the Manages table
+EXECUTE usp_InsertNewManages 2, 23
+
+--	It shows me how much data there is in the Manages table
+SELECT COUNT (*) FROM MANAGES
+
+--------------------------------------------------------------------------------------------------------------------------
+
+--	It shows me how many data there is in the table Role_Per_Employee
+SELECT COUNT (*) FROM ROLE_PER_EMPLOYEE
+
+--	Inserted a data in the table Role_Per_Employee
+EXECUTE usp_InsertNewRole_Per_Employee 23, 2
+
+--	It shows me how many data there is in the table Role_Per_Employee
+SELECT COUNT (*) FROM ROLE_PER_EMPLOYEE
+
+--------------------------------------------------------------------------------------------------------------------------
+
+--	It shows me how much data there is in the Material_Per_Stage table
+SELECT COUNT (*) FROM MATERIAL_PER_STAGE
+
+--	Inserted a data in the table Material_Per_Stage
+EXECUTE usp_InsertNewMaterial_Per_Stage 7, 8975425, 12
+
+--	It shows me how much data there is in the Material_Per_Stage table
+SELECT COUNT (*) FROM MATERIAL_PER_STAGE
+
+--------------------------------------------------------------------------------------------------------------------------
+
+/*
 	All Drops of Procedures
 */
 
@@ -845,3 +1257,20 @@ END
 --DROP PROCEDURE usp_InsertNewRole_Per_Employee
 --DROP PROCEDURE usp_InsertNewMaterial_Per_Stage
 --DROP DATABASE TEConstruye
+--DROP PROCEDURE usp_employees_table;
+--DROP PROCEDURE usp_clients_table;
+--DROP PROCEDURE usp_projects_table;
+--DROP PROCEDURE usp_purchases_table;
+--DROP PROCEDURE usp_stages_table;
+--DROP PROCEDURE usp_materials_table;
+--DROP PROCEDURE usp_stages_per_project_table;
+--DROP PROCEDURE usp_roles_table;
+--DROP PROCEDURE usp_works_on_table;
+--DROP PROCEDURE usp_manages_table;
+--DROP PROCEDURE usp_roles_per_employee_table;
+--DROP PROCEDURE usp_materials_per_stage_table;
+--DROP PROCEDURE usp_employees_and_roles;
+--DROP PROCEDURE usp_materials_and_costs_per_project_per_stage @Project_num=1;
+--DROP PROCEDURE usp_employee_Information_per_project @Project_Num=2;
+--DROP PROCEDURE usp_salary_employee_1 @ID=8,@Project=1;
+--DROP PROCEDURE usp_shopping @Project_num=2;
