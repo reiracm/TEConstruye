@@ -16,11 +16,11 @@ Email							VARCHAR (30)		 NOT NULL,
 specialty						VARCHAR (30)		 NOT NULL,
 Hourly_pay						INT,
 Password_						VARCHAR (30)		 NOT NULL,
-IDPhone							INT					 NOT NULL,
+Phone							VARCHAR (30)		 NOT NULL,
 ID								INT					 NOT NULL,
 IDRole							INT					 NOT NULL,
 
-UNIQUE (IDPhone),
+UNIQUE (Phone),
 UNIQUE (ID),
 UNIQUE (Email),
 UNIQUE (Code),
@@ -35,9 +35,9 @@ Sname							VARCHAR (30)		 NOT NULL,
 Lname							VARCHAR (30)		 NOT NULL,
 Email							VARCHAR (30)		 NOT NULL,
 Password_						VARCHAR (30)		 NOT NULL,
-IDPhone							INT					 NOT NULL,
+Phone							VARCHAR (30)		 NOT NULL,
 ID								INT					 NOT NULL,
-UNIQUE (IDPhone),
+UNIQUE (Phone),
 UNIQUE (ID),
 UNIQUE (Email),
 PRIMARY KEY (ID)
@@ -95,15 +95,6 @@ IDProject						INT					 NOT NULL,
 IDStage							INT				 	 NOT NULL,
 );
 
-/** PHONE'S TABLE **/
-CREATE TABLE PHONES(
-Phone							INT					 NOT NULL,
-ID								INT					 NOT NULL, 
-UNIQUE (Phone),
-UNIQUE (ID),
-PRIMARY KEY (ID)
-);
-
 /** ROLE'S TABLE **/
 CREATE TABLE ROLE_(
 ID								INT					 NOT NULL,
@@ -143,10 +134,6 @@ Quantity						INT					 NOT NULL,
 Price_aprox						INT					 NOT NULL,
 );
 
-
-ALTER TABLE EMPLOYEE ADD FOREIGN KEY (IDPhone) REFERENCES PHONES(ID);
-
-ALTER TABLE CLIENT ADD FOREIGN KEY (IDPhone) REFERENCES PHONES(ID);
 
 ALTER TABLE PROJECT ADD FOREIGN KEY (IDClient) REFERENCES CLIENT(ID);
 
