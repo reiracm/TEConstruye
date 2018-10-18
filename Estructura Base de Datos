@@ -115,9 +115,6 @@ IDProject						INT					 NOT NULL,
 CREATE TABLE MANAGES(
 IDProject						INT					 NOT NULL,
 IDEmployee						INT					 NOT NULL,
-UNIQUE (IDProject),
-UNIQUE (IDEmployee),
-PRIMARY KEY (IDProject)
 );
 
 /** ROLES PER EMPLOYEE TABLE **/
