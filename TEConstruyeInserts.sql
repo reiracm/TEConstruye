@@ -2,37 +2,6 @@ GO
 USE TEConstruye
 GO
 
-
-INSERT INTO PHONES (Phone, ID) VALUES 
-(89855076, 1),
-(85216302, 2),
-(89523666,	3),
-(87565152,	4),
-(89023698,	5),
-(81230044,	6),
-(89756534,	7),
-(85862153,	8),
-(82465789,	9),
-(87956541,	10),
-(87596950,	11),
-(82412351,	12),
-(80122325,	13),
-(83212850,	14),
-(86212058,	15),
-(82372899,	16),
-(88865455,	17),
-(89345620,	18),
-(89313820,	19),
-(80315340,	20),
-(86655298,	21),
-(89799888,	22),
-(84446562,	23),
-(82515655,	24),
-(83222121,	25),
-(85336565,	26),
-(89999898,	27),
-(84446656,	28);
-
 INSERT INTO ROLE_ (ID, Name_) VALUES 
 (1,	'Ingeriero'),
 (2,	'Administrador'),
@@ -81,9 +50,9 @@ INSERT INTO MATERIAL (Name_, Price, Code) VALUES
 ('Brochas',	4000,	4548654),
 ('Madera para las escaleras',	100000,	8877985); 
 
-INSERT INTO CLIENT (Fname,	Sname,	Lname,	Email,	Password_,	IDPhone,	ID) VALUES 
-('Jennifer',	'Schmidt',	'Yates',	'jenSchmidt@gmail.com',	'j3NsChY4t3s',	13,	1),
-('Niko',	'Vasquez',	'Moody',	'nikoVas@gmail.com',	'n1K0V4s',	14,	2);
+INSERT INTO CLIENT (Fname,	Sname,	Lname,	Email,	Password_,	Phone,	ID) VALUES 
+('Jennifer',	'Schmidt',	'Yates',	'jenSchmidt@gmail.com',	'j3NsChY4t3s',	80122325,	1),
+('Niko',	'Vasquez',	'Moody',	'nikoVas@gmail.com',	'n1K0V4s',	83212850,	2);
 
 INSERT INTO STAGE (Name_,	Description_,	ID) VALUES 
 ('Trabajo Preliminar',	'El trazado inicial',	1),
@@ -108,33 +77,33 @@ INSERT INTO STAGE (Name_,	Description_,	ID) VALUES
 ('Escaleras',	'Las escaleras de la casa',	20),
 ('Terminado',	'Terminación del proyecto',	21);
 
-INSERT INTO EMPLOYEE (Fname,	Sname,	Lname,	Code,	Email,	Specialty,	Hourly_pay,	Password_,	IDPhone,	ID,	IDRole) VALUES
-('Richard',	'Johnson',	'Clark',	1935264,	'riJoHnC@teconstruye.com',	'Civil',	3500,	'R1cH4rD',	1,	1,	1),
-('Jorge',	'Warner',	'Spears',	2165121,	'joWarner@teconstruye.com',	'Trabajador',	1500,	'j0rg3w4rN3r',	22,	2,	5),
-('Alice',	'Flores',	'Lopez',	1283456,	'alFloLz@teconstruye.com',	'Eléctrico',	3000,	'A1ic3L0z',	2,	3,	1),
-('Becky',	'Santos',	'Baxter',	8151312,	'beckSant@teconstruye.com',	'Trabajador',	1500,	'b3cKyS4nt',	15,	4,	5),
-('Keith',	'Miller',	'Wilson', 2054123,	'keMiWi@teconstruye.com',	'Construcción',	3500,	'K31hTm1W1',	3,	5,	1),
-('Alejandro',	'Sears',	'Gaines',	5788988,	'aleSears@teconstruye.com',	'Trabajador',	1500,	'4l3S34rs',	16,	6,	5),
-('Maria',	'Smith',	'Roman',	2539205,	'maSmTro@teconstruye.com',	'Construcción',	2500,	'm4R14sTh',	4,	7,	4),
-('Kelly',	'McDonald',	'Cefalu',	1230545,	'kelMcCef@teconstruye.com',	'Director',	3000,	'k31LyMc',	17,	8, 3),
-('Eugene',	'Lee',	'Chang',	9654201,	'euLeEcG@teconstruye.com',	'Enchapado',	2500,	'EuG3n13L33',	5,	9,	4),
-('Wesly',	'Lowe',	'Ayala',	6555454,	'wesLowe@teconstruye.com',	'Trabajador',	1500,	'w3s1yL0w3',	18,	10,	5),
-('Karen',	'Reyes',	'Rivas',	7520135,	'kaReRs@teconstruye.com',	'Eléctrico',	3000,	'K4r3nR3y',	6,	11,	1),
-('Diana',	'Soto',	'Cortez',	8999985,	'dianSot@teconstruye.com',	'Trabajador',	1500,	'd14n4S0t0',	19,	12,	5),
-('Ned',	'Ferrer',	'Lozano',	2054235,	'neFrLo@teconstruye.com',	'Armadura',	2500,	'n3dF3rL0',	7,	13,	4),
-('Mark',	'Romero',	'Lloyd',	2222251,	'maRomLd@teconstruye.com',	'Trabajador',	1500,	'm4rKr0M3r0',	20,	14,	5),
-('Ariel',	'Garcia',	'Perez',	2301156,	'arGaRpZ@teconstruye.com',	'Concreto',	2500,	'4R13Lg4',	8,	15,	4),
-('Sophie',	'Frost',	'Klein',	3553122,	'soFrost@teconstruye.com',	'Trabajador',	1500,	's0pH13Fr0st',	21,	16,	5),
-('Zack',	'Scott',	'Baker',	8745454,	'zaStBr@teconstruye.com',	'Fontanero',	2500,	'z4CkSc0t7',	9,	17,	4),
-('Francisco',	'Wiley', 	'Guerra',	2515312,	'fraWiley@teconstruye.com',	'Director',	3000,	'Fr4nW1L3y',	23,	18,	3),
-('Teresa',	'Long',	'Foster',	2138704,	'teLgFr@teconstruye.com',	'Soldador',	2500,	't3r3S4L0nG',	10,	19,	4),
-('Sandra',	'Jones',	'Anderson',	3356542,	'saJones@teconstruye.com',	'Trabajador',	1500,	's4nDr4g0',	24,	20,	5),
-('Gerald',	'Gomez',	'Cruz',	822161,	'geGzCz@teconstruye.com',	'Albañil',	2500,	'g3R41dg0',	11,	21,	4),
-('Leonardo',	'Harris',	'Hernandez',	5453435,	'LeoHarris@teconstruye.com',	'Trabajador',	1500,	'L30h4rR1s',	25,	22,	5),
-('Yendry',	'Castillo',	'Weaver',	1546546,	'yeCoWr@teconstruye.com',	'Evanista',	2500,	'Y3ndYC4',	12,	23,	4),
-('William',	'Turner',	'Morgan',	8852211,	'willTurner@teconstruye.com',	'Trabajador',	1500,	'w1LlTun3r',	26,	24,	5),
-('Tim',	'Steward',	'Cooper',	5202252,	'timSteward@teconstruye.com',	'Printor',	2500,	't1mSt3w4rD',	27,	25,	4),
-('Matt',	'Darwin',	'Rodriguez',	4646513,	'maDarwin@teconstruye.com',	'Trabajador',	1500,	'M4ttd4rW1n',	28,	26,	2);
+INSERT INTO EMPLOYEE (Fname,	Sname,	Lname,	Code,	Email,	Specialty,	Hourly_pay,	Password_,	Phone,	ID,	IDRole) VALUES
+('Richard',	'Johnson',	'Clark',	1935264,	'riJoHnC@teconstruye.com',	'Civil',	3500,	'R1cH4rD',	89855076,	1,	1),
+('Jorge',	'Warner',	'Spears',	2165121,	'joWarner@teconstruye.com',	'Trabajador',	1500,	'j0rg3w4rN3r',	85216302,	2,	5),
+('Alice',	'Flores',	'Lopez',	1283456,	'alFloLz@teconstruye.com',	'Eléctrico',	3000,	'A1ic3L0z',	89523666,	3,	1),
+('Becky',	'Santos',	'Baxter',	8151312,	'beckSant@teconstruye.com',	'Trabajador',	1500,	'b3cKyS4nt',	87565152,	4,	5),
+('Keith',	'Miller',	'Wilson', 2054123,	'keMiWi@teconstruye.com',	'Construcción',	3500,	'K31hTm1W1',	89023698,	5,	1),
+('Alejandro',	'Sears',	'Gaines',	5788988,	'aleSears@teconstruye.com',	'Trabajador',	1500,	'4l3S34rs',	81230044,	6,	5),
+('Maria',	'Smith',	'Roman',	2539205,	'maSmTro@teconstruye.com',	'Construcción',	2500,	'm4R14sTh',	89756534,	7,	4),
+('Kelly',	'McDonald',	'Cefalu',	1230545,	'kelMcCef@teconstruye.com',	'Director',	3000,	'k31LyMc',	85862153,	8, 3),
+('Eugene',	'Lee',	'Chang',	9654201,	'euLeEcG@teconstruye.com',	'Enchapado',	2500,	'EuG3n13L33',	82465789,	9,	4),
+('Wesly',	'Lowe',	'Ayala',	6555454,	'wesLowe@teconstruye.com',	'Trabajador',	1500,	'w3s1yL0w3',	87956541,	10,	5),
+('Karen',	'Reyes',	'Rivas',	7520135,	'kaReRs@teconstruye.com',	'Eléctrico',	3000,	'K4r3nR3y',	87596950,	11,	1),
+('Diana',	'Soto',	'Cortez',	8999985,	'dianSot@teconstruye.com',	'Trabajador',	1500,	'd14n4S0t0',	82412351,	12,	5),
+('Ned',	'Ferrer',	'Lozano',	2054235,	'neFrLo@teconstruye.com',	'Armadura',	2500,	'n3dF3rL0',	86212058,	13,	4),
+('Mark',	'Romero',	'Lloyd',	2222251,	'maRomLd@teconstruye.com',	'Trabajador',	1500,	'm4rKr0M3r0',	82372899,	14,	5),
+('Ariel',	'Garcia',	'Perez',	2301156,	'arGaRpZ@teconstruye.com',	'Concreto',	2500,	'4R13Lg4',	88865455,	15,	4),
+('Sophie',	'Frost',	'Klein',	3553122,	'soFrost@teconstruye.com',	'Trabajador',	1500,	's0pH13Fr0st',	89345620,	16,	5),
+('Zack',	'Scott',	'Baker',	8745454,	'zaStBr@teconstruye.com',	'Fontanero',	2500,	'z4CkSc0t7',	89313820,	17,	4),
+('Francisco',	'Wiley', 	'Guerra',	2515312,	'fraWiley@teconstruye.com',	'Director',	3000,	'Fr4nW1L3y',	80321534,	18,	3),
+('Teresa',	'Long',	'Foster',	2138704,	'teLgFr@teconstruye.com',	'Soldador',	2500,	't3r3S4L0nG',	86655298,	19,	4),
+('Sandra',	'Jones',	'Anderson',	3356542,	'saJones@teconstruye.com',	'Trabajador',	1500,	's4nDr4g0',	89799888,	20,	5),
+('Gerald',	'Gomez',	'Cruz',	822161,	'geGzCz@teconstruye.com',	'Albañil',	2500,	'g3R41dg0',	84446562,	21,	4),
+('Leonardo',	'Harris',	'Hernandez',	5453435,	'LeoHarris@teconstruye.com',	'Trabajador',	1500,	'L30h4rR1s',	82515655,	22,	5),
+('Yendry',	'Castillo',	'Weaver',	1546546,	'yeCoWr@teconstruye.com',	'Evanista',	2500,	'Y3ndYC4',	83222121,	23,	4),
+('William',	'Turner',	'Morgan',	8852211,	'willTurner@teconstruye.com',	'Trabajador',	1500,	'w1LlTun3r',	85336565,	24,	5),
+('Tim',	'Steward',	'Cooper',	5202252,	'timSteward@teconstruye.com',	'Printor',	2500,	't1mSt3w4rD',	89999898,	25,	4),
+('Matt',	'Darwin',	'Rodriguez',	4646513,	'maDarwin@teconstruye.com',	'Trabajador',	1500,	'M4ttd4rW1n',	84446656,	26,	2);
 
 INSERT INTO PROJECT (Location_,	Total_Price,	IDClient,	ID, Name_) VALUES
 ('Cartago',	2567800,	1,	1, 'Construcción casa'),
