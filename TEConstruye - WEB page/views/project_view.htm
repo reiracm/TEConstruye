@@ -39,18 +39,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div style="margin: 10px">
-                                <input class="form-control mr-sm-2" type="search" data-ng-model = "search_project" placeholder="Buscar proyecto" aria-label="Search"> 
-                                <select class="custom-select" id="purchase_project_select" aria-label="">
-                                    <option  data-ng-repeat = "project in project_list | filter: search_project" value="{{project['ID']}}" >{{"Proyecto: "+project["Name_"] +", ID: "+project["ID"]}}</option>
-                                </select>
-                            </div>
-                            <div style="margin: 10px">
-                                <input class="form-control mr-sm-2" type="search" data-ng-model = "search_stage" placeholder="Buscar etapa" aria-label="Search"> 
-                                <select class="custom-select" id="purchase_stage_select" aria-label="">
-                                    <option  data-ng-repeat = "stage in stage_list | filter: search_stage" value="{{stage['ID']}}" >{{"Etapa: "+stage["Name_"] +", ID: "+stage["ID"]}}</option>
-                                </select>
-                            </div>
+                            <input class="form-control mr-sm-2" type="search" data-ng-model = "search_project_stages" placeholder="Buscar etapa" aria-label="Search"> 
+                            <select class="custom-select" id="assign_purchase_select" aria-label="">
+                                <option  data-ng-repeat = "project_stage in project_stages_list | filter: search_project_stages" value="{{project_stage}}" >{{"Proyecto: "+project_stage['IDProject'] + ",Etapa: "+project_stage['IDStage'] }}</option>
+                            </select>
                             <div data-ng-repeat = "(key,value) in project_expense_template" class="input-group-prepend" style = "margin: 5px;">
                                 <span class="input-group-text badge-dark">{{translate[key]}}</span>
                                 <input type="text" class="form-control" ng-model="project_expense_template[key]" aria-describedby="basic-addon3">

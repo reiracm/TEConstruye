@@ -16,18 +16,19 @@
                     </div>
                     <div class="modal-body">
                         <div data-ng-repeat = "(key,value) in stage_template" class="input-group-prepend" style = "margin: 5px;">
-                            <span class="input-group-text badge-dark">{{key}}</span>
+                            <span class="input-group-text badge-dark">{{translate[key]}}</span>
                             <input type="text" class="form-control" ng-model="stage_template[key]" aria-describedby="basic-addon3">
                         </div>
-                        <div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
-                            <button ng-click="addStage()" type="button" class="btn btn-warning">Agregar</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-click="addStage()" type="button" class="btn btn-warning">Agregar</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!--Modal for assigning a material to a stage-->
         <div>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#assign_material_modal" style="margin-left: 20px; margin-top: 20px;">Asignar material</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#assign_material_modal" style="margin-left: 20px; margin-top: 20px;">Asignar material a una etapa</button>
         </div>
         <div class="modal fade" id="assign_material_modal" tabindex="-1" role="dialog" aria-labelledby="adding_stage_modalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -39,25 +40,25 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input class="form-control mr-sm-2" type="search" data-ng-model = "search_material" placeholder="Buscar material" aria-label="Search">  
-                        <div class="table-wrapper-scroll-y">
-                            <table class="table table-bordered table-striped" style="display: block; max-height: 200px; overflow-y: auto; text-align: center">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Codigo</th>
-                                        <th scope="col">Precio</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr data-ng-repeat = "material in material_list | filter: search_material">
-                                        <td>{{material["MName"]}}</td>
-                                        <td>{{material["Code"]}}</td>
-                                        <td>{{material["Price"]}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>   
+                        <div style="margin: 10px">
+                            <input class="form-control mr-sm-2" type="search" data-ng-model = "search_stage_assignment" placeholder="Buscar etapa" aria-label="Search"> 
+                            <select class="custom-select" id="to_assign_stage_select" aria-label="">
+                                <option  data-ng-repeat = "stage in stage_list | filter: search_stage_assignment" value="{{stage['ID']}}" >{{'Nombre: '+stage["Name_"]+', ID: '+stage["ID"]}}</option>
+                            </select>
                         </div>
+                        <div style="margin: 10px">
+                            <input class="form-control mr-sm-2" type="search" data-ng-model = "search_material_assignment" placeholder="Buscar material" aria-label="Search"> 
+                            <select class="custom-select" id="to_assign_material_select" aria-label="">
+                                <option  data-ng-repeat = "material in material_list | filter: search_material_assignment" value="{{material['Code']}}" >{{'Nombre: '+material["Name_"]+', Code: '+material["Code"]}}</option>
+                            </select>
+                        </div>
+                        <div data-ng-repeat = "(key,value) in material_stage_template" class="input-group-prepend" style = "margin: 5px;">
+                            <span class="input-group-text badge-dark">{{translate[key]}}</span>
+                            <input type="text" class="form-control" ng-model="material_stage_template[key]" aria-describedby="basic-addon3">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-click="assignMaterialToStage()" type="button" class="btn btn-warning">Asignar</button>
                     </div>
                 </div>
             </div>
@@ -66,10 +67,10 @@
     <div>
         <!--Table for viewing stage data-->
         <div class="card-body">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" style="text-align: center">
                 <thead style="text-align: center" class="thead-dark">
                     <tr>
-                        <th data-ng-repeat = "(key,value) in stage_template" scope="col">{{key}}</th>
+                        <th data-ng-repeat = "(key,value) in stage_template" scope="col">{{translate[key]}}</th>
                     </tr>
                 </thead>
                 <tbody>

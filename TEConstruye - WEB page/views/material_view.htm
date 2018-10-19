@@ -14,22 +14,22 @@
                     </div>
                     <div class="modal-body">
                         <div data-ng-repeat = "(key,value) in material_template" class="input-group-prepend" style = "margin: 5px;">
-                            <span class="input-group-text badge-dark">{{key}}</span>
+                            <span class="input-group-text badge-dark">{{translate[key]}}</span>
                             <input type="text" class="form-control" ng-model="material_template[key]" aria-describedby="basic-addon3">
                         </div>
-                        <div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
-                            <button ng-click="addMaterial()" type="button" class="btn btn-warning">Agregar</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-click="addMaterial()" type="button" class="btn btn-warning">Agregar</button>
                     </div>
                 </div>
             </div>
         </div>
         <!--Table for viewing material data-->
         <div class="card-body">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" style="text-align: center">
                 <thead style="text-align: center" class="thead-dark">
                     <tr>
-                        <th data-ng-repeat = "(key,value) in material_template" scope="col">{{key}}</th>
+                        <th data-ng-repeat = "(key,value) in material_template" scope="col">{{translate[key]}}</th>
                     </tr>
                 </thead>
                 <tbody>
