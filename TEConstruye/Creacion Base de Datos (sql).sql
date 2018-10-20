@@ -13,7 +13,7 @@ Email							VARCHAR (30)		 NOT NULL,
 specialty						VARCHAR (30)		 NOT NULL,
 Hourly_pay						INT,
 Password_						VARCHAR (30)		 NOT NULL,
-Phone							INT		 NOT NULL,
+Phone							INT					 NOT NULL,
 ID								INT					 NOT NULL,
 IDRole							INT					 NOT NULL,
 
@@ -163,7 +163,7 @@ ALTER TABLE MATERIAL_PER_STAGE ADD FOREIGN KEY (CodeMaterial) REFERENCES MATERIA
 */
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Employee's table information
 */
@@ -179,7 +179,7 @@ FROM EMPLOYEE
 GO;
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Client's table information
 */
@@ -195,7 +195,7 @@ FROM CLIENT
 GO;
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Project's table information
 */
@@ -211,7 +211,7 @@ FROM PROJECT
 GO;
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Purchase's table information
 */
@@ -227,7 +227,7 @@ FROM PURCHASE
 GO;
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Stage's table information
 */
@@ -243,7 +243,7 @@ FROM STAGE
 GO;
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Material's table information
 */
@@ -259,7 +259,7 @@ FROM MATERIAL
 GO;
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Stages per project information
 */
@@ -275,7 +275,7 @@ FROM STAGES_PER_PROJECT
 GO;
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Role's table information
 */
@@ -291,7 +291,7 @@ FROM ROLE_
 GO;
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows which employees work on each project
 */
@@ -307,7 +307,7 @@ FROM WORKS_ON
 GO;
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Manager's table information
 */
@@ -323,7 +323,7 @@ FROM MANAGES
 GO;
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Roles per employee information
 */
@@ -339,7 +339,7 @@ FROM ROLE_PER_EMPLOYEE
 GO
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Materials per stage information
 */
@@ -355,7 +355,7 @@ FROM MATERIAL_PER_STAGE
 GO
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Each employee and each role information
 */
@@ -374,7 +374,7 @@ GO
 
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Materials and costs per project, per stage
 */
@@ -385,16 +385,18 @@ GO
 
 CREATE PROCEDURE usp_materials_and_costs_per_project_per_stage @Project_num INT
 AS
-SELECT STAGES_PER_PROJECT.IDStage, MATERIAL_PER_STAGE.CodeMaterial, MATERIAL_PER_STAGE.Quantity, PURCHASE.Price
+SELECT STAGE.Name_ AS Stage_Name_ , STAGES_PER_PROJECT.IDStage, MATERIAL.Name_ AS Material_Name, MATERIAL_PER_STAGE.CodeMaterial, MATERIAL_PER_STAGE.Quantity, PURCHASE.Price
 FROM STAGES_PER_PROJECT
 	INNER JOIN MATERIAL_PER_STAGE ON STAGES_PER_PROJECT.IDStage = MATERIAL_PER_STAGE.IDStage
 	INNER JOIN PURCHASE ON STAGES_PER_PROJECT.IDStage = PURCHASE.IDStage
+	INNER JOIN MATERIAL ON MATERIAL_PER_STAGE.CodeMaterial = MATERIAL.Code
+	INNER JOIN STAGE ON STAGES_PER_PROJECT.IDStage = STAGE.ID
 WHERE STAGES_PER_PROJECT.IDProject=@Project_num
 ORDER BY STAGES_PER_PROJECT.IDProject
 GO
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Shows Employees who work on Project
 */
@@ -411,7 +413,7 @@ WHERE WORKS_ON.IDProject = @Project_Num
 GO
 
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Salaries per employee
 */
@@ -422,14 +424,16 @@ GO
 
 CREATE PROCEDURE usp_salary_employee_1 @ID INT, @Project INT
 AS
-SELECT  EMPLOYEE.ID , EMPLOYEE.Fname, EMPLOYEE.Sname, EMPLOYEE.Lname, EMPLOYEE.Hourly_pay, WORKS_ON.Hours_
+SELECT DISTINCT EMPLOYEE.Fname AS First_Name, EMPLOYEE.Sname AS Second_Name, EMPLOYEE.Lname AS Last_Name, EMPLOYEE.Hourly_pay, WORKS_ON.Hours_, STAGE.Name_ AS Stage_Name, STAGES_PER_PROJECT.Start_Date_,STAGES_PER_PROJECT.End_Date, WORKS_ON.DateName_
 FROM EMPLOYEE
 	INNER JOIN WORKS_ON ON EMPLOYEE.ID = WORKS_ON.IDEmployee
-WHERE EMPLOYEE.ID = @ID AND WORKS_ON.IDProject = @Project
+	INNER JOIN STAGES_PER_PROJECT ON STAGES_PER_PROJECT.IDProject = WORKS_ON.IDProject
+	INNER JOIN STAGE ON STAGES_PER_PROJECT.IDStage= STAGE.ID
+WHERE EMPLOYEE.ID = @ID AND WORKS_ON.IDProject = @Project AND (WORKS_ON.Day_ BETWEEN STAGES_PER_PROJECT.Start_Date_ AND STAGES_PER_PROJECT.End_Date) 
 GO
  
 /*
- --@AUTHOR Yenira Chac髇
+ --@AUTHOR Yenira Chac贸n
  --@CREATE DATE 14/10/2018
  --DESCRIPTION: Ticket per project
 */
@@ -1267,4 +1271,4 @@ BEGIN
 			Print 'Record: ' + (CAST (@Material_Per_StageNewIDStage  AS varchar(30))) + 
 				' do not exist'
 		END
-END 
+END
