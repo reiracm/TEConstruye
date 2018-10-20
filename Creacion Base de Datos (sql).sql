@@ -62,7 +62,6 @@ IDStage							INT					 NOT NULL,
 ID								INT					 NOT NULL,
 Location_						VARCHAR(30)			 NOT NULL,
 UNIQUE (ID),
-UNIQUE (IDStage),
 PRIMARY KEY (ID)
 );
 
@@ -497,8 +496,6 @@ BEGIN TRY
 
 	Else
 		BEGIN
-		
-			Print 'Record: ' + (CAST (@IdNewEmployeePhone AS varchar)) + ' do not exist - Insert'
 
 			--	Verify that the EmployeeEmail exists in the Employee table
 			If EXISTS(
@@ -514,9 +511,6 @@ BEGIN TRY
 			ELSE
 				BEGIN
 
-					Print 'Record: ' +  @IdNewEmployeeEmail + ' do not exist - Insert'
-					Print 'enter verify Email'
-
 					--	Verify that the EmployeeCode exists in the Employee table
 					If EXISTS(
 						SELECT EMPLOYEE.Code
@@ -530,8 +524,6 @@ BEGIN TRY
 
 					ELSE
 						BEGIN
-							Print 'Record: ' +  (CAST (@IdNewEmployeeCode AS varchar)) + ' do not exist - Insert'
-							Print 'Enter verify code'
 
 							-- Verifies if the role exists in the Role table
 							If EXISTS(
@@ -541,8 +533,6 @@ BEGIN TRY
 							)
 
 							BEGIN
-								Print 'Record exist: ' +  (CAST (@IdNewEmployeeRole AS varchar)) 
-								Print 'Enter Insert'
 								
 								--	The next ID of the Employee is obtained
 								DECLARE @CountEmployeeID varchar (30)
