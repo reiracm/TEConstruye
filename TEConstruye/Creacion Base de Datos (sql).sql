@@ -88,6 +88,8 @@ End_Date						DATE				 NOT NULL,
 Start_Date_						DATE				 NOT NULL,
 IDProject						INT					 NOT NULL,
 IDStage							INT				 	 NOT NULL,
+ID							INT					 NOT NULL,
+PRIMARY KEY (ID),
 );
 
 /** ROLE'S TABLE **/
@@ -104,19 +106,25 @@ Hours_							INT					 NOT NULL,
 Day_							DATE				 NOT NULL,
 IDEmployee						INT					 NOT NULL,
 IDProject						INT					 NOT NULL,
-DateName_						VARCHAR (30)		 NOT NULL,						
+DateName_						VARCHAR (30)		 NOT NULL,
+ID							INT					 NOT NULL,
+PRIMARY KEY (ID),
 );
 
 /** WHO MANAGES EACH PROJECT TABLE **/
 CREATE TABLE MANAGES(
 IDProject						INT					 NOT NULL,
 IDEmployee						INT					 NOT NULL,
+ID							INT					 NOT NULL,
+PRIMARY KEY (ID),
 );
 
 /** ROLES PER EMPLOYEE TABLE **/
 CREATE TABLE ROLE_PER_EMPLOYEE( 
 IDEmployee						INT					 NOT NULL,
 IDRole							INT					 NOT NULL,
+ID							INT					 NOT NULL,
+PRIMARY KEY (ID),
 );
 
 /** MATERIALS PER STAGE TABLE **/
@@ -125,6 +133,8 @@ IDStage							INT					 NOT NULL,
 CodeMaterial					INT					 NOT NULL,
 Quantity						INT					 NOT NULL,
 Price_aprox						INT					 NOT NULL,
+ID							INT					 NOT NULL,
+PRIMARY KEY (ID),
 );
 
 /*
@@ -918,11 +928,17 @@ BEGIN
 		)
 
 		BEGIN
+
+			--	Find out what the next Stage_Per_Project ID is
+			DECLARE @CountStage_Per_ProjectID varchar (30)
+			DECLARE @CountStage_Per_ProjectIDInt int
+			SELECT @CountStage_Per_ProjectID = count(*) from STAGES_PER_PROJECT
+			SELECT @CountStage_Per_ProjectIDInt = (CAST (@CountStage_Per_ProjectID AS int) + 1)
 			
 			--	A new stage of a project is inserted in the table STAGES_PER_PROJECT
-			INSERT INTO STAGES_PER_PROJECT (End_Date,	Start_Date_,	IDProject,	IDStage) VALUES
+			INSERT INTO STAGES_PER_PROJECT (End_Date,	Start_Date_,	IDProject,	IDStage, ID) VALUES
 			(@Stages_Per_ProjectNewEnd_Date, @Stages_Per_ProjectNewStart_Date, @Stages_Per_ProjectNewIDProject,
-			@Stages_Per_ProjectNewIDStage)
+			@Stages_Per_ProjectNewIDStage, @CountStage_Per_ProjectIDInt)
 
 			--	What was saved is printed
 			Print ''
@@ -930,7 +946,8 @@ BEGIN
 			(CAST (@Stages_Per_ProjectNewEnd_Date AS VARCHAR)) + ' Start_Date: ' + 
 			(CAST (@Stages_Per_ProjectNewStart_Date AS VARCHAR)) + ' IDProject: ' + 
 			(CAST (@Stages_Per_ProjectNewIDProject AS VARCHAR)) + ' IDStage: ' + 
-			(CAST (@Stages_Per_ProjectNewIDStage AS VARCHAR))
+			(CAST (@Stages_Per_ProjectNewIDStage AS VARCHAR)) + ' ID: ' + 
+			(CAST (@CountStage_Per_ProjectIDInt AS VARCHAR))
 
 		END
 
@@ -1033,17 +1050,24 @@ BEGIN
 		)
 
 		BEGIN
+
+			--	Find out what the next WORKS_ON ID is
+			DECLARE @CountWorks_OnID varchar (30)
+			DECLARE @CountWorks_OnIDInt int
+			SELECT @CountWorks_OnID = count(*) from WORKS_ON
+			SELECT @CountWorks_OnIDInt = (CAST (@CountWorks_OnID AS int) + 1)
 			
 			--	The new data is inserted in the table WORKS_ON
-			INSERT INTO WORKS_ON (Hours_,	Day_,	IDEmployee,	IDProject, DateName_) VALUES
+			INSERT INTO WORKS_ON (Hours_,	Day_,	IDEmployee,	IDProject, DateName_ ,ID) VALUES
 			(@Works_OnNewHours, @Works_OnNewDay, @Works_OnNewIDEmployee, @Works_OnNewIDProject, 
-			datename(dw,@Works_OnNewDay))
+			datename(dw,@Works_OnNewDay), @CountWorks_OnIDInt)
 
 			--	What is saved in the WORKS_ON table is printed
 			Print ''
 			Print 'The new record was inserted in the table WORKS_ON: Hours: ' + (CAST (@Works_OnNewHours AS varchar)) +
 			' Day: ' + (CAST (@Works_OnNewDay AS varchar)) + ' IDEmployee: ' + (CAST (@Works_OnNewIDEmployee AS varchar)) +
-			' IDProject: ' + (CAST (@Works_OnNewIDProject AS varchar)) + ' DateName: ' + datename(dw,@Works_OnNewDay)
+			' IDProject: ' + (CAST (@Works_OnNewIDProject AS varchar)) + ' DateName: ' + datename(dw,@Works_OnNewDay) +
+			' ID: ' + (CAST (@CountWorks_OnIDInt AS varchar))
 
 		END
 
@@ -1097,15 +1121,22 @@ BEGIN
 
 		BEGIN
 			
+			--	Find out what the next Manages ID is
+			DECLARE @CountManagesID varchar (30)
+			DECLARE @CountManagesIDInt int
+			SELECT @CountManagesID = count(*) from MANAGES
+			SELECT @CountManagesIDInt = (CAST (@CountManagesID AS int) + 1)
+
 			--	The new data is inserted in the MANAGES table
-			INSERT INTO MANAGES (IDProject,	IDEmployee) VALUES 
-			(@ManagesNewIDProject, @ManagesNewIDEmployee)
+			INSERT INTO MANAGES (IDProject,	IDEmployee, ID) VALUES 
+			(@ManagesNewIDProject, @ManagesNewIDEmployee, @CountManagesIDInt)
 
 			--	What was saved in the MANAGES table is printed
 			Print ''
 			Print 'The new record was inserted in the table MANAGES: IDProject: ' + 
 			(CAST (@ManagesNewIDProject AS varchar)) + ' IDEmployee: ' + 
-			(CAST (@ManagesNewIDEmployee AS varchar)) 
+			(CAST (@ManagesNewIDEmployee AS varchar)) + ' ID: ' + 
+			(CAST (@CountManagesIDInt AS varchar))
 
 		END
 
@@ -1158,16 +1189,23 @@ BEGIN
 		)
 
 		BEGIN
+
+			--	Find out what the next Role_Per_Employee ID is
+			DECLARE @CountRole_Per_EmployeeID varchar (30)
+			DECLARE @CountRole_Per_EmployeeIDInt int
+			SELECT @CountRole_Per_EmployeeID = count(*) from ROLE_PER_EMPLOYEE
+			SELECT @CountRole_Per_EmployeeIDInt = (CAST (@CountRole_Per_EmployeeID AS int) + 1)
 			
 			--	The new data is inserted in the table ROLE_PER_EMPLOYEE
-			INSERT INTO ROLE_PER_EMPLOYEE (IDEmployee,	IDRole) VALUES 
-			(@Role_Per_EmployeeNewIDEmployee, @Role_Per_EmployeeNewIDRole)
+			INSERT INTO ROLE_PER_EMPLOYEE (IDEmployee,	IDRole, ID) VALUES 
+			(@Role_Per_EmployeeNewIDEmployee, @Role_Per_EmployeeNewIDRole, @CountRole_Per_EmployeeIDInt)
 
 			--	What is saved in the table is printed ROLE_PER_EMPLOYEE
 			Print ''
 			Print 'The new record was inserted in the table ROLE_PER_EMPLOYEE: IDEmployee: ' + 
 			(CAST (@Role_Per_EmployeeNewIDEmployee AS varchar)) + ' IDRole: ' + 
-			(CAST (@Role_Per_EmployeeNewIDRole AS varchar)) 
+			(CAST (@Role_Per_EmployeeNewIDRole AS varchar)) + ' ID: ' + 
+			(CAST (@CountRole_Per_EmployeeIDInt AS varchar))
 
 		END
 
@@ -1223,6 +1261,12 @@ BEGIN
 
 		BEGIN
 
+			--	Find out what the next Role_Per_Employee ID is
+			DECLARE @CountMaterial_Per_StageID varchar (30)
+			DECLARE @CountMaterial_Per_StageIDInt int
+			SELECT @CountMaterial_Per_StageID = count(*) from MATERIAL_PER_STAGE 
+			SELECT @CountMaterial_Per_StageIDInt = (CAST (@CountMaterial_Per_StageID AS int) + 1)
+
 			--	The price of the material is selected
 			DECLARE @CountMaterialPriceInt int
 			Select @CountMaterialPriceInt = MATERIAL.Price 
@@ -1244,9 +1288,9 @@ BEGIN
 
 
 			--	The data is inserted in the table MATERIAL_PER_STAGE
-			INSERT INTO MATERIAL_PER_STAGE (IDStage,	CodeMaterial,	Quantity,	Price_aprox) VALUES
+			INSERT INTO MATERIAL_PER_STAGE (IDStage,	CodeMaterial,	Quantity,	Price_aprox, ID) VALUES
 			(@Material_Per_StageNewIDStage, @Material_Per_StageNewCodeMaterial, 
-			@Material_Per_StageNewQuantity, @CountMaterialPrice_aprox);
+			@Material_Per_StageNewQuantity, @CountMaterialPrice_aprox, @CountMaterial_Per_StageIDInt);
 
 			--	What is saved in the MATERIAL_PER_STAGE table is printed
 			Print ''
@@ -1254,7 +1298,8 @@ BEGIN
 			(CAST (@Material_Per_StageNewIDStage AS varchar)) +
 			' CodeMaterial: ' + (CAST (@Material_Per_StageNewCodeMaterial AS varchar)) + 
 			' Quantity: ' + (CAST (@Material_Per_StageNewQuantity AS varchar)) +
-			' Price_aprox: ' + (CAST (@CountMaterialPrice_aprox AS varchar))
+			' Price_aprox: ' + (CAST (@CountMaterialPrice_aprox AS varchar)) + 
+			' ID: ' + (CAST (@CountMaterial_Per_StageIDInt AS varchar))
 
 		END
 
