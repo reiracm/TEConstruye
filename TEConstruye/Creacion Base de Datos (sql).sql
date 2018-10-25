@@ -1317,3 +1317,29 @@ BEGIN
 				' do not exist'
 		END
 END
+
+CREATE TRIGGER _change_salary
+ON EMPLOYEE
+AFTER UPDATE
+AS
+BEGIN
+DECLARE @actual_salary INT
+DECLARE @new_salary INT
+IF @new_salary<1000
+RAISERROR('El salario de un empleado no puede ser menor al salario mínimo',16,1);
+ROLLBACK TRANSACTION;
+RETURN;
+END;
+
+CREATE TRIGGER _purchase_validation
+ON PURCHASE
+AFTER UPDATE
+AS
+BEGIN
+DECLARE @actual_purchase INT
+DECLARE @cost INT
+IF @cost<0
+RAISERROR('La compra debe tener un costo mayor o igual a 0',16,1);
+ROLLBACK TRANSACTION;
+RETURN;
+END;
