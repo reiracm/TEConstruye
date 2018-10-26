@@ -1318,6 +1318,10 @@ BEGIN
 		END
 END
 
+GO
+USE TEConstruye
+GO
+
 CREATE TRIGGER _change_salary
 ON EMPLOYEE
 AFTER UPDATE
@@ -1330,6 +1334,10 @@ RAISERROR('El salario de un empleado no puede ser menor al salario mínimo',16,1
 ROLLBACK TRANSACTION;
 RETURN;
 END;
+
+GO
+USE TEConstruye
+GO
 
 CREATE TRIGGER _purchase_validation
 ON PURCHASE
