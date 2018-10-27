@@ -10,8 +10,8 @@ Sname							VARCHAR (30)		 NOT NULL,
 Lname							VARCHAR (30)		 NOT NULL,
 Code							INT				 	 NOT NULL,
 Email							VARCHAR (30)		 NOT NULL, 
-Specialty						VARCHAR (30)		 NOT NULL,
-Hourly_pay						INT,
+specialty						VARCHAR (30)		 NOT NULL,
+Hourly_pay						INT					 NOT NULL,
 Password_						VARCHAR (30)		 NOT NULL,
 Phone							INT					 NOT NULL,
 ID								INT					 NOT NULL,
@@ -32,7 +32,7 @@ Sname							VARCHAR (30)		 NOT NULL,
 Lname							VARCHAR (30)		 NOT NULL,
 Email							VARCHAR (30)		 NOT NULL,
 Password_						VARCHAR (30)		 NOT NULL,
-Phone							INT		 NOT NULL,
+Phone							INT					 NOT NULL,
 ID								INT					 NOT NULL,
 UNIQUE (Phone),
 UNIQUE (ID),
@@ -55,7 +55,7 @@ PRIMARY KEY (ID)
 CREATE TABLE PURCHASE(
 Price							INT					 NOT NULL,
 Amount							INT					 NOT NULL,
-Date_							DATE,
+Date_							DATE				 NOT NULL,
 Description_					VARCHAR (150)		 NOT NULL,
 IDProject						INT					 NOT NULL,
 IDStage							INT					 NOT NULL,
@@ -68,7 +68,7 @@ PRIMARY KEY (ID)
 /** STAGE'S TABLE **/
 CREATE TABLE STAGE(
 Name_							VARCHAR (30)		 NOT NULL,
-Description_					VARCHAR (150),
+Description_					VARCHAR (150)		 NOT NULL,
 ID								INT					 NOT NULL,
 UNIQUE (ID),
 PRIMARY KEY (ID) 
@@ -88,7 +88,7 @@ End_Date						DATE				 NOT NULL,
 Start_Date_						DATE				 NOT NULL,
 IDProject						INT					 NOT NULL,
 IDStage							INT				 	 NOT NULL,
-ID							INT					 NOT NULL,
+ID								INT					 NOT NULL,
 PRIMARY KEY (ID),
 );
 
@@ -107,7 +107,7 @@ Day_							DATE				 NOT NULL,
 IDEmployee						INT					 NOT NULL,
 IDProject						INT					 NOT NULL,
 DateName_						VARCHAR (30)		 NOT NULL,
-ID							INT					 NOT NULL,
+ID								INT					 NOT NULL,
 PRIMARY KEY (ID),
 );
 
@@ -115,7 +115,7 @@ PRIMARY KEY (ID),
 CREATE TABLE MANAGES(
 IDProject						INT					 NOT NULL,
 IDEmployee						INT					 NOT NULL,
-ID							INT					 NOT NULL,
+ID								INT					 NOT NULL,
 PRIMARY KEY (ID),
 );
 
@@ -123,7 +123,7 @@ PRIMARY KEY (ID),
 CREATE TABLE ROLE_PER_EMPLOYEE( 
 IDEmployee						INT					 NOT NULL,
 IDRole							INT					 NOT NULL,
-ID							INT					 NOT NULL,
+ID								INT					 NOT NULL,
 PRIMARY KEY (ID),
 );
 
@@ -133,7 +133,7 @@ IDStage							INT					 NOT NULL,
 CodeMaterial					INT					 NOT NULL,
 Quantity						INT					 NOT NULL,
 Price_aprox						INT					 NOT NULL,
-ID							INT					 NOT NULL,
+ID								INT					 NOT NULL,
 PRIMARY KEY (ID),
 );
 
@@ -376,10 +376,12 @@ GO
 
 CREATE PROCEDURE usp_employees_and_roles 
 AS
+BEGIN
 SELECT EMPLOYEE.ID, EMPLOYEE.Fname, EMPLOYEE.Sname, EMPLOYEE.Lname, ROLE_.Name_
 FROM EMPLOYEE
 	INNER JOIN ROLE_ ON  EMPLOYEE.IDRole = ROLE_.ID
 ORDER BY EMPLOYEE.IDRole
+END
 GO
 
 
@@ -395,6 +397,7 @@ GO
 
 CREATE PROCEDURE usp_materials_and_costs_per_project_per_stage @Project_num INT
 AS
+BEGIN
 SELECT STAGE.Name_ AS Stage_Name_ , STAGES_PER_PROJECT.IDStage, MATERIAL.Name_ AS Material_Name, MATERIAL_PER_STAGE.CodeMaterial, MATERIAL_PER_STAGE.Quantity, PURCHASE.Price
 FROM STAGES_PER_PROJECT
 	INNER JOIN MATERIAL_PER_STAGE ON STAGES_PER_PROJECT.IDStage = MATERIAL_PER_STAGE.IDStage
@@ -403,6 +406,7 @@ FROM STAGES_PER_PROJECT
 	INNER JOIN STAGE ON STAGES_PER_PROJECT.IDStage = STAGE.ID
 WHERE STAGES_PER_PROJECT.IDProject=@Project_num
 ORDER BY STAGES_PER_PROJECT.IDProject
+END
 GO
 
 /*
@@ -417,9 +421,11 @@ GO
 
 CREATE PROCEDURE usp_employee_Information_per_project @Project_Num INT
 AS
+BEGIN
 SELECT EMPLOYEE.ID, EMPLOYEE.Fname , EMPLOYEE.SName, EMPLOYEE.Lname
 FROM EMPLOYEE, WORKS_ON
 WHERE WORKS_ON.IDProject = @Project_Num
+END
 GO
 
 /*
@@ -434,12 +440,14 @@ GO
 
 CREATE PROCEDURE usp_salary_employee_1 @ID INT, @Project INT
 AS
+BEGIN
 SELECT DISTINCT EMPLOYEE.Fname AS First_Name, EMPLOYEE.Sname AS Second_Name, EMPLOYEE.Lname AS Last_Name, EMPLOYEE.Hourly_pay, WORKS_ON.Hours_, STAGE.Name_ AS Stage_Name, STAGES_PER_PROJECT.Start_Date_,STAGES_PER_PROJECT.End_Date, WORKS_ON.DateName_
 FROM EMPLOYEE
 	INNER JOIN WORKS_ON ON EMPLOYEE.ID = WORKS_ON.IDEmployee
 	INNER JOIN STAGES_PER_PROJECT ON STAGES_PER_PROJECT.IDProject = WORKS_ON.IDProject
 	INNER JOIN STAGE ON STAGES_PER_PROJECT.IDStage= STAGE.ID
 WHERE EMPLOYEE.ID = @ID AND WORKS_ON.IDProject = @Project AND (WORKS_ON.Day_ BETWEEN STAGES_PER_PROJECT.Start_Date_ AND STAGES_PER_PROJECT.End_Date) 
+END
 GO
  
 /*
@@ -454,19 +462,22 @@ GO
 
 CREATE PROCEDURE usp_shopping @Project_num INT
 AS
+BEGIN
 SELECT PURCHASE.ID, PURCHASE.Date_, PURCHASE.Amount, PURCHASE.Price
 FROM PURCHASE
 WHERE PURCHASE.IDProject= @Project_num
+END
 GO
 
-GO
-USE TEConstruye
-GO
 /*
  --@AUTHOR Yenira Chacón
  --@CREATE DATE 24/10/2018
  --DESCRIPTION: Project state
 */
+
+GO
+USE TEConstruye
+GO
 
 CREATE PROCEDURE usp_project_state @Project_num INT
 AS
@@ -479,16 +490,16 @@ WHERE STAGES_PER_PROJECT.IDProject=@Project_num
 END
 GO
 
-GO
-USE TEConstruye
-GO
-
 
 /*
  --@AUTHOR Yenira Chacón
  --@CREATE DATE 24/10/2018
  --DESCRIPTION: Project total cost
 */ 
+
+GO
+USE TEConstruye
+GO
 
 CREATE PROCEDURE usp_project_total_cost @Project_num INT
 AS
@@ -498,6 +509,10 @@ FROM PROJECT
 WHERE PROJECT.ID=@Project_num
 END
 GO
+
+
+
+
 
 /*
 	Inserts of all the DataBase 
@@ -1357,6 +1372,7 @@ BEGIN
 				' do not exist'
 		END
 END
+
 
 GO
 USE TEConstruye
