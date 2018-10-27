@@ -459,6 +459,46 @@ FROM PURCHASE
 WHERE PURCHASE.IDProject= @Project_num
 GO
 
+GO
+USE TEConstruye
+GO
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 24/10/2018
+ --DESCRIPTION: Project state
+*/
+
+CREATE PROCEDURE usp_project_state @Project_num INT
+AS
+BEGIN
+SELECT STAGE.Name_ , MATERIAL_PER_STAGE.Price_aprox
+FROM STAGES_PER_PROJECT
+	INNER JOIN STAGE ON STAGES_PER_PROJECT.IDStage=STAGE.ID
+	INNER JOIN MATERIAL_PER_STAGE ON STAGES_PER_PROJECT.IDStage=MATERIAL_PER_STAGE.IDStage
+WHERE STAGES_PER_PROJECT.IDProject=@Project_num
+END
+GO
+
+GO
+USE TEConstruye
+GO
+
+
+/*
+ --@AUTHOR Yenira Chacón
+ --@CREATE DATE 24/10/2018
+ --DESCRIPTION: Project total cost
+*/ 
+
+CREATE PROCEDURE usp_project_total_cost @Project_num INT
+AS
+BEGIN
+SELECT PROJECT.Total_Price
+FROM PROJECT
+WHERE PROJECT.ID=@Project_num
+END
+GO
+
 /*
 	Inserts of all the DataBase 
 */
